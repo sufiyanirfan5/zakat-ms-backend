@@ -33,7 +33,7 @@ app.use('/api/campaigns', campaignRoutes);
 // Error Handler
 app.use((err, req, res, next) => {
   console.error('❌ Server Error:', err.stack);
-  res.status(500).json({ error: err.message || 'Internal Server Error' });
+  res.status(500).json({ error: 'GLOBAL BACKEND ERROR: ' + (err.message || 'Internal Server Error') });
 });
 
 app.listen(PORT, () => {

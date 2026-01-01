@@ -12,21 +12,8 @@ const userSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
-// Hash password before saving
-userSchema.pre('save', function(next) {
-    if (!this.isModified('password')) {
-        return next();
-    }
-    
-    bcrypt.genSalt(10, (err, salt) => {
-        if (err) return next(err);
-        bcrypt.hash(this.password, salt, (err, hash) => {
-            if (err) return next(err);
-            this.password = hash;
-            next();
-        });
-    });
-});
+// Hash password will be handled in the routes for now to ensure no hook-related issues
+// on the Render environment.
 
 // Compare password method
 userSchema.methods.comparePassword = async function(candidatePassword) {
